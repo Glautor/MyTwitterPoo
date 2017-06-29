@@ -4,6 +4,7 @@ public class Tweet {
 	private String usuario;
 	private String mensagem;
 	
+	
 	public void setUsuario(String usuario){
 		this.usuario = usuario;
 	}
