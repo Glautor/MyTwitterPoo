@@ -16,7 +16,7 @@ public class teste {
 
 	public static void main(String[] args) throws UJCException, UNCException, PEException, PIException, PDException, MFPException, SIException{
 		PessoaFisica pf = new PessoaFisica("dhannyell");
-		PessoaFisica pff = new PessoaFisica("dhannyell2");
+		PessoaFisica pff = new PessoaFisica("dhannyell");
 		PessoaFisica pfff = new PessoaFisica("dhannyell3");
 		RepositorioUsuario rp = new RepositorioUsuario();
 		MyTwitter my = new MyTwitter(rp);
@@ -24,10 +24,10 @@ public class teste {
 		my.criarPerfil(pff);
 		my.criarPerfil(pfff);
 		my.seguir("dhannyell", "dhannyell2");
-		my.seguir("dhannyell", "dhannyell3");
-		//my.cancelarPerfil("dhannyell");
-		my.numeroSeguidores("dhannyel2");
-		my.cancelarPerfil("dhannyell4");
+		my.seguir("dhannyell3", "dhannyell2");
+		my.cancelarPerfil("dhannyell7s");
+		System.out.println(my.numeroSeguidores("dhannyell2"));
+		
 		
 		
 		

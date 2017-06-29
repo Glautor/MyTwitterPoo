@@ -18,6 +18,6 @@ public interface ITwitter {
 	public Vector<Tweet> tweets(String usuario) throws PIException, PDException;
 	public void seguir(String seguidor,String seguido) throws PIException, PDException, SIException;
 	public int numeroSeguidores(String usuario) throws PIException, PDException;
-	public Vector<Perfil> seguidores(String  usuario);
+	public Vector<Perfil> seguidores(String  usuario) throws PIException, PDException;
 	public Vector<Perfil> seguidos(String usuario);
 	}
