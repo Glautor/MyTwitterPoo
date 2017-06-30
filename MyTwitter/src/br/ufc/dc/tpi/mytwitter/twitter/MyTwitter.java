@@ -191,13 +191,50 @@ public class MyTwitter implements ITwitter {
 
 	@Override
 	public Vector<Perfil> seguidores(String usuario) throws PIException, PDException {
-		// TODO Auto-generated method stub
+		Perfil p = repositorio.buscar(usuario);
+		try {
+			if (p != null && p.isAtivo() == true) {
+				for (Perfil pp : p.getSeguidores()) {
+					if (pp.isAtivo() == true) {
+						System.out.println(pp.getUsuario());
+					}
+				}
+			}
+			if (p == null) {
+				throw new PIException(usuario);
+			}
+			if (p != null && p.isAtivo() == false) {
+				throw new PDException(usuario);
+			}
+		} catch (PIException e) {
+			e.printStackTrace();
+		} catch (PDException ee) {
+			ee.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
-	public Vector<Perfil> seguidos(String usuario) {
-		// TODO Auto-generated method stub
+	public Vector<Perfil> seguidos(String usuario) throws PIException, PDException {
+		Perfil p = repositorio.buscar(usuario);
+		try {
+			if (p != null && p.isAtivo() == true) {
+				for (Perfil pp : p.getSeguidos()) {
+					if (pp.isAtivo() == true) {
+						System.out.println(pp.getUsuario());
+					}
+				}
+			}
+			if (p == null) {
+				throw new PIException(usuario);
+			} else if (p != null && p.isAtivo() == false) {
+				throw new PDException(usuario);
+			}
+		} catch (PIException e) {
+			e.printStackTrace();
+		} catch (PDException ee) {
+			ee.printStackTrace();
+		}
 		return null;
 	}
 
