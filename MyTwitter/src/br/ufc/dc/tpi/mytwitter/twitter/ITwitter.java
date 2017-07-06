@@ -1,5 +1,7 @@
 package br.ufc.dc.tpi.mytwitter.twitter;
 import java.util.Vector;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import br.ufc.dc.tpi.mytwitter.perfil.Perfil;
 import br.ufc.dc.tpi.mytwitter.perfil.Tweet;
@@ -15,7 +17,7 @@ public interface ITwitter {
 	public void cancelarPerfil(String usuario) throws PIException, PDException;
 	public void tweetar(String usuario,String mensagem) throws PIException, MFPException;
 	public Vector<Tweet> timeline(String usuario) throws PIException, PDException;
-	public Vector<Tweet> tweets(String usuario) throws PIException, PDException;
+	public Vector<Tweet> tweets(String usuario) throws PIException, PDException, IOException;
 	public void seguir(String seguidor,String seguido) throws PIException, PDException, SIException;
 	public int numeroSeguidores(String usuario) throws PIException, PDException;
 	public Vector<Perfil> seguidores(String  usuario) throws PIException, PDException;

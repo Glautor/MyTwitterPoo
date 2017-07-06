@@ -1,8 +1,25 @@
 package br.ufc.dc.tpi.mytwitter.twitter;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+
 import br.ufc.dc.tpi.mytwitter.perfil.Perfil;
+import br.ufc.dc.tpi.mytwitter.perfil.PessoaFisica;
+import br.ufc.dc.tpi.mytwitter.perfil.PessoaJuridica;
 import br.ufc.dc.tpi.mytwitter.perfil.Tweet;
 import br.ufc.dc.tpi.mytwitter.persistencia.IRepositorioUsuario;
 import br.ufc.dc.tpi.mytwitter.persistencia.exception.UJCException;
@@ -11,13 +28,18 @@ import br.ufc.dc.tpi.mytwitter.twitter.exception.PDException;
 import br.ufc.dc.tpi.mytwitter.twitter.exception.PEException;
 import br.ufc.dc.tpi.mytwitter.twitter.exception.PIException;
 import br.ufc.dc.tpi.mytwitter.twitter.exception.SIException;
+import javafx.animation.Timeline;
 
+import java.util.ArrayList;
+
+@XStreamAlias(value = "MyTwitter")
 public class MyTwitter implements ITwitter {
 	private IRepositorioUsuario repositorio;
-
+	Vector<Tweet> vtw;
 	public MyTwitter(IRepositorioUsuario repositorio) {
 		this.repositorio = repositorio;
-
+		this.vtw = new Vector<Tweet>();
+		this.vtw = ler("src/br/ufc/dc/tpi/mytwitter/data/tweets/Tweets.xml");
 	}
 
 	@Override
@@ -59,41 +81,56 @@ public class MyTwitter implements ITwitter {
 
 	@Override
 	public void tweetar(String usuario, String mensagem) throws PIException, MFPException {
+		Tweet t = new Tweet();
 		Perfil p = repositorio.buscar(usuario);
+		Vector<Tweet> pp = new Vector<Tweet>();
 		try {
 			if (p != null && p.isAtivo() == true) {
 				if (mensagem.length() <= 140) {
-					Tweet t = new Tweet();
 					t.setUsuario(usuario);
 					t.setMensagem(mensagem);
-					p.addTweet(t);
-					for (Perfil ps : p.getSeguidores()) {
-						if (ps.isAtivo() == true) {
-							ps.addTweet(t);
+					//p.addTweet(t);
+					this.vtw.add(t);
+					for (Tweet tt : vtw) {
+						pp.add(tt);
+					}
+					for (Perfil pe : p.getSeguidores()) {
+						if (pe.isAtivo() == true) {
+							pe.addTweet(t);
 						}
 					}
 				} else {
 					throw new MFPException();
 				}
-
 			} else {
 				throw new PIException(usuario);
 			}
+			gravar("src/br/ufc/dc/tpi/mytwitter/data/tweets/Tweets.xml", pp);
 		} catch (PIException e) {
 			e.printStackTrace();
-		} catch (MFPException ee) {
-			ee.printStackTrace();
+		} catch (MFPException e) {
+			e.printStackTrace();
 		}
+
 	}
 
 	@Override
+
 	public Vector<Tweet> timeline(String usuario) throws PIException, PDException {
 		Perfil p = repositorio.buscar(usuario);
+		Vector<Tweet> tws = new Vector<Tweet>();
 		try {
 			if (p != null && p.isAtivo() == true) {
-				for (Tweet ta : p.getTimeline()) {
-					System.out.println(ta.getMensagem() + " - " + ta.getUsuario());
+				for(Tweet tt : p.getTimeline()){
+					if(tt.getUsuario() == usuario){
+						p.addTweet(tt);
+						tws.add(tt);
+					}
 				}
+				//for (Tweet ta : p.getTimeline()) {
+					//tws.add(ta);
+					//System.out.println(ta.getMensagem());
+				//}
 			}
 			if (p == null) {
 				throw new PIException(usuario);
@@ -101,23 +138,28 @@ public class MyTwitter implements ITwitter {
 			if (p != null && p.isAtivo() == false) {
 				throw new PDException(usuario);
 			}
+			gravar("src/br/ufc/dc/tpi/mytwitter/data/timelines/timeline"+ "-" + usuario + ".xml", tws);
 		} catch (PIException e) {
 			e.printStackTrace();
 		} catch (PDException ee) {
 			ee.printStackTrace();
 		}
-		return null;
+		return tws;
 	}
 
 	@Override
 	public Vector<Tweet> tweets(String usuario) throws PIException, PDException {
 		Perfil p = repositorio.buscar(usuario);
+		// System.out.println(p.getUsuario());
+		Vector<Tweet> tw = new Vector<Tweet>();
 		try {
 			if (p != null && p.isAtivo() == true) {
-				for (Tweet ta : p.getTimeline()) {
-					if (ta.getUsuario() == p.getUsuario()) {
-						System.out.println(ta.getMensagem());
+				for (Tweet ta : vtw) {
+					if (ta.getUsuario().equals(usuario)) {
+						tw.add(ta);
+						// System.out.println(ta.getMensagem());
 					}
+
 				}
 			}
 			if (p == null) {
@@ -126,12 +168,13 @@ public class MyTwitter implements ITwitter {
 			if (p != null && p.isAtivo() == false) {
 				throw new PDException(usuario);
 			}
+
 		} catch (PIException e) {
 			e.printStackTrace();
 		} catch (PDException ee) {
 			ee.printStackTrace();
 		}
-		return null;
+		return tw;
 	}
 
 	@Override
@@ -192,36 +235,45 @@ public class MyTwitter implements ITwitter {
 	@Override
 	public Vector<Perfil> seguidores(String usuario) throws PIException, PDException {
 		Perfil p = repositorio.buscar(usuario);
+		Vector<Perfil> vp = new Vector<Perfil>();
+		Vector<String> vst = new Vector<String>();
+		vst = ler2("src/br/ufc/dc/tpi/mytwitter/data/seguidores/seguidores-"+ usuario + ".xml");
 		try {
 			if (p != null && p.isAtivo() == true) {
 				for (Perfil pp : p.getSeguidores()) {
 					if (pp.isAtivo() == true) {
-						System.out.println(pp.getUsuario());
+						vp.add(pp);
+						vst.add(pp.getUsuario());
 					}
 				}
 			}
+			
 			if (p == null) {
 				throw new PIException(usuario);
 			}
 			if (p != null && p.isAtivo() == false) {
 				throw new PDException(usuario);
 			}
+			gravar2("src/br/ufc/dc/tpi/mytwitter/data/seguidores/seguidores"+"-"+usuario+".xml", vst);
 		} catch (PIException e) {
 			e.printStackTrace();
 		} catch (PDException ee) {
 			ee.printStackTrace();
 		}
-		return null;
+		return vp;
 	}
 
 	@Override
 	public Vector<Perfil> seguidos(String usuario) throws PIException, PDException {
 		Perfil p = repositorio.buscar(usuario);
+		Vector<Perfil> vp = new Vector<Perfil>();
+		Vector<String> vst = new Vector<String>();
 		try {
 			if (p != null && p.isAtivo() == true) {
 				for (Perfil pp : p.getSeguidos()) {
 					if (pp.isAtivo() == true) {
-						System.out.println(pp.getUsuario());
+						vp.add(pp);
+						vst.add(pp.getUsuario());
 					}
 				}
 			}
@@ -230,12 +282,100 @@ public class MyTwitter implements ITwitter {
 			} else if (p != null && p.isAtivo() == false) {
 				throw new PDException(usuario);
 			}
+			gravar2("src/br/ufc/dc/tpi/mytwitter/data/seguidos/seguidos"+"-"+usuario+".xml", vst);
 		} catch (PIException e) {
 			e.printStackTrace();
 		} catch (PDException ee) {
 			ee.printStackTrace();
 		}
+		return vp;
+	}
+
+	public void gravar(String diretorio, Vector<Tweet> p) {
+		XStream stream = new XStream(new DomDriver());
+		stream.alias("Tweets", Vector.class);
+		stream.alias("Tweet", Tweet.class);
+		stream.autodetectAnnotations(true);
+
+		try {
+			String path = new File(diretorio).getCanonicalPath();
+			File a = new File(path);
+			if (!a.exists())
+				a.createNewFile();
+
+			PrintStream gravar = new PrintStream(a);
+			gravar.println(stream.toXML(p));
+			gravar.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void gravar2(String diretorio, Vector<String> p) {
+		XStream stream = new XStream(new DomDriver());
+		stream.alias("Usuarios", Vector.class);
+		stream.alias("UsuarioPF", PessoaFisica.class);
+		
+		stream.autodetectAnnotations(true);
+
+		try {
+			String path = new File(diretorio).getCanonicalPath();
+			File a = new File(path);
+			if (!a.exists())
+				a.createNewFile();
+
+			PrintStream gravar = new PrintStream(a);
+			gravar.println(stream.toXML(p));
+			gravar.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public Vector<Tweet> ler(String diretorio) {
+		XStream xStream = new XStream(new DomDriver());
+		xStream.alias("Tweets", Vector.class);
+		xStream.alias("Tweet", Tweet.class);
+		// String path = new File(diretorio).getCanonicalPath();
+		// xStream.processAnnotations(PessoaFisica.class);
+
+		try {
+			String path = new File(diretorio).getCanonicalPath();
+			BufferedReader input = new BufferedReader(new FileReader(path));
+			Vector<Tweet> vpf = (Vector<Tweet>) xStream.fromXML(input);
+			input.close();
+			return vpf;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
+
+	}
+	
+	public Vector<String> ler2(String diretorio) {
+		XStream xStream = new XStream(new DomDriver());
+		xStream.alias("Usuarios", Vector.class);
+		//xStream.alias("Tweet", Tweet.class);
+		// String path = new File(diretorio).getCanonicalPath();
+		// xStream.processAnnotations(PessoaFisica.class);
+
+		try {
+			String path = new File(diretorio).getCanonicalPath();
+			BufferedReader input = new BufferedReader(new FileReader(path));
+			Vector<String> vpf = (Vector<String>) xStream.fromXML(input);
+			input.close();
+			return vpf;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+
 	}
 
 }

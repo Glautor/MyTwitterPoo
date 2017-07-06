@@ -1,7 +1,16 @@
 package br.ufc.dc.tpi.mytwitter.perfil;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Vector;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
+@XStreamAlias("Perfil")
 public abstract class Perfil {
 	private String usuario;
 	private Vector<Perfil> seguidos;
@@ -10,6 +19,7 @@ public abstract class Perfil {
 	private boolean ativo;
 	
 	public Perfil(String usuario){
+		
 		this.seguidos = new Vector<Perfil>();
 		this.seguidores = new Vector<Perfil>();
 		this.timeline = new Vector<Tweet>();
@@ -77,5 +87,27 @@ public abstract class Perfil {
 	
 	public int tamanho(){
 		return seguidores.size();
+	}
+	
+	public Vector<Tweet> ler(String diretorio){
+		XStream xStream = new XStream(new DomDriver());
+		xStream.alias("Tweets", Vector.class);
+		xStream.alias("Tweet", Tweet.class);
+		//xStream.alias("UsuarioPJ", PessoaJuridica.class);
+		//String path = new File(diretorio).getCanonicalPath();
+		//xStream.processAnnotations(PessoaFisica.class);
+
+		try {
+			String path = new File(diretorio).getCanonicalPath();
+			BufferedReader input = new BufferedReader(new FileReader(path));
+			Vector<Tweet> vpf = (Vector<Tweet>) xStream.fromXML(input);
+			input.close();
+			return vpf;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

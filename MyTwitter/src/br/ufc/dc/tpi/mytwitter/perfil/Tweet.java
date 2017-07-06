@@ -1,5 +1,8 @@
 package br.ufc.dc.tpi.mytwitter.perfil;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias(value="Tweet")
 public class Tweet {
 	private String usuario;
 	private String mensagem;

@@ -1,9 +1,10 @@
 package br.ufc.dc.tpi.mytwitter.perfil;
 public class PessoaFisica extends Perfil {
-	private long cpf;
+	private long cpf = 0;
 	
-	public PessoaFisica(String usuario){
+	public PessoaFisica(String usuario,long cpf){
 		super(usuario);
+		this.cpf = cpf;
 	}
 	
 	public void setCpf(long cpf){

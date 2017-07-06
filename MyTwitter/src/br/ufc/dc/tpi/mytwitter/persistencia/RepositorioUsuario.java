@@ -1,48 +1,94 @@
 package br.ufc.dc.tpi.mytwitter.persistencia;
+
 import java.util.Vector;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+
 import br.ufc.dc.tpi.mytwitter.perfil.Perfil;
+import br.ufc.dc.tpi.mytwitter.perfil.PessoaFisica;
+import br.ufc.dc.tpi.mytwitter.perfil.PessoaJuridica;
+import br.ufc.dc.tpi.mytwitter.perfil.Tweet;
 import br.ufc.dc.tpi.mytwitter.persistencia.exception.UJCException;
 import br.ufc.dc.tpi.mytwitter.persistencia.exception.UNCException;
 
 import java.io.*;
 
-
 public class RepositorioUsuario implements IRepositorioUsuario {
 	private Vector<Perfil> usuarios;
-	
+
 	public RepositorioUsuario() {
+		
 		this.usuarios = new Vector<Perfil>();
+		this.usuarios = ler("src/br/ufc/dc/tpi/mytwitter/data/usuarios/Usuarios.xml");
+		
 	}
 
+	public void cadastrar(Perfil usuario) throws UJCException {
+		Vector<Perfil> p = new Vector<Perfil>();
+		
+		try {
+			if (this.buscar(usuario.getUsuario()) == null) {
+				this.usuarios.add(usuario);
 
-	public void cadastrar(Perfil usuario) throws UJCException{
-		 String pathDir = "C:/Users/dhann/Desktop";
-		 File diretorio = new File(pathDir);
-		 if (!diretorio.isDirectory()) {
-		 diretorio.mkdir();
-		 }
-		 
-		if (this.buscar(usuario.getUsuario()) == null) {
-			this.usuarios.add(usuario);
-			 try {
-				 String pathArquivo = pathDir + "/" + "Usuarios.txt";
-				 FileWriter arquivo = new FileWriter(pathArquivo);
-				 PrintWriter gravador = new PrintWriter(arquivo);
-				
-				for(Perfil u: usuarios){
-					gravador.println(u.getUsuario());
+				for (Perfil u : usuarios) {
+					p.add(u);
 				}
-				 gravador.close();
-			 }catch (IOException ioe) {
-				 ioe.printStackTrace();
-			 }
-		}else{
-			throw new UJCException(usuario.getUsuario());
-		}
-		 
-	}
+				gravar("C:/Users/dhann/Documents/Git/MyTwitter/src/br/ufc/dc/tpi/mytwitter/data/usuarios/Usuarios.xml", p);
+			} else {
+				throw new UJCException(usuario.getUsuario());
+			}
+		} catch (UJCException e) {
+			e.printStackTrace();
+		} 
 
+	}
+	
+	public void gravar(String diretorio,Vector<Perfil> p){
+		XStream stream = new XStream(new DomDriver());
+		stream.alias("Usuarios", Vector.class);
+		stream.alias("UsuarioPF", PessoaFisica.class);
+		stream.alias("UsuarioPJ", PessoaJuridica.class);
+		stream.autodetectAnnotations(true);
+		
+		
+		try {
+		String path = new File(diretorio).getCanonicalPath();
+		File a = new File(path);
+			if(!a.exists()) a.createNewFile();
+			
+			PrintStream gravar = new PrintStream(a);
+			gravar.println(stream.toXML(p));
+			gravar.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Vector<Perfil> ler(String diretorio){
+		XStream xStream = new XStream(new DomDriver());
+		xStream.alias("Usuarios", Vector.class);
+		xStream.alias("UsuarioPF", PessoaFisica.class);
+		xStream.alias("UsuarioPJ", PessoaJuridica.class);
+		//String path = new File(diretorio).getCanonicalPath();
+		//xStream.processAnnotations(PessoaFisica.class);
+
+		try {
+			String path = new File(diretorio).getCanonicalPath();
+			BufferedReader input = new BufferedReader(new FileReader(path));
+			Vector<Perfil> vpf = (Vector<Perfil>) xStream.fromXML(input);
+			input.close();
+			return vpf;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
 
 	public Perfil buscar(String usuario) {
 		for (Perfil u : usuarios) {
@@ -53,52 +99,38 @@ public class RepositorioUsuario implements IRepositorioUsuario {
 		return null;
 	}
 
-
 	public void atualizar(Perfil usuario) throws UNCException {
-		 String pathDir = "C:/Users/dhann/Desktop";
-		 String pathArquivo = pathDir + "/" + "Usuarios.txt";
-		 
-		 
-		Perfil p = this.buscar(usuario.getUsuario());
-			if(p != null){
-				 try {
+		String pathDir = "C:/Users/dhann/Documents/Git/MyTwitter/src/br/ufc/dc/tpi/mytwitter/data";
+		String pathArquivo = pathDir + "/" + "Usuarios.xml";
+		XStream stream = new XStream( new DomDriver());
 		
-					 FileReader arquivo = new FileReader(pathArquivo);
-					 BufferedReader leitor = new BufferedReader(arquivo);
-					 String conteudo = leitor.readLine();
-					 while(conteudo != null){
-						 System.out.println(conteudo);
-						 conteudo = leitor.readLine();						 
-						 if(conteudo == usuario.getUsuario()){
-							 
-						 }
-						
-					 }
-					 leitor.close();
-					 usuario = p;
-				
-			
-				 }catch (IOException ioe) {
-					 ioe.printStackTrace();
-				 }
-				
-				
-			}else{
-				throw new UNCException(usuario.getUsuario());
+		Perfil p = this.buscar(usuario.getUsuario());
+		if (p != null) {
+			try {
+
+				FileReader arquivo = new FileReader(pathArquivo);
+				BufferedReader leitor = new BufferedReader(arquivo);
+				String conteudo = leitor.readLine();
+				while (conteudo != null) {
+					System.out.println(conteudo);
+					conteudo = leitor.readLine();
+					if (conteudo == usuario.getUsuario()) {
+
+					}
+
+				}
+				leitor.close();
+				usuario = p;
+
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
 			}
-	}
-	
-	public Perfil[] listar() {
-		Perfil array[] = new Perfil[this.usuarios.size()];
-		int index = 0;
-		for (Perfil conta : usuarios) {
-			array[index++] = conta;
+
+		} else {
+			throw new UNCException(usuario.getUsuario());
 		}
-		return array;
 	}
+
 	
-	public int tamanho(){
-		return this.usuarios.size();
-	}
 
 }
