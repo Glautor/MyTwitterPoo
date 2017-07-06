@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="508.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufc.dc.tpi.mytwitter.view.SplashController">
+   <children>
+      <ImageView fx:id="image" fitHeight="370.0" fitWidth="508.0" pickOnBounds="true">
+         <image>
+            <Image url="@twitter_f.jpg" />
+         </image>
+      </ImageView>
+      <Pane fx:id="pane" opacity="0.45" prefHeight="352.0" prefWidth="522.0" style="-fx-background-color: #000000;" />
+      <Text fx:id="text" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Carregando.">
+         <font>
+            <Font name="Roboto Medium" size="56.0" />
+         </font>
+      </Text>
+   </children>
+</StackPane>
