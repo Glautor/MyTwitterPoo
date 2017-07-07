@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.validation.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufc.dc.tpi.mytwitter.view.CriarPerfilController">
+   <children>
+      <JFXTextField fx:id="usuario" layoutX="186.0" layoutY="93.0" prefHeight="25.0" prefWidth="237.0" promptText="Usuario" />
+      <JFXTextField fx:id="cpf" layoutX="189.0" layoutY="168.0" prefHeight="25.0" prefWidth="237.0" promptText="CPF ou CNPJ" />
+      <JFXCheckBox fx:id="PessoaFisica" layoutX="182.0" layoutY="226.0" text="Pessoa Fisica" />
+      <JFXCheckBox fx:id="PessoaJuridica" layoutX="308.0" layoutY="226.0" text="Pessoa Juridica" />
+      <JFXButton fx:id="PerfilBoton" buttonType="RAISED" layoutX="247.0" layoutY="286.0" onAction="#criarPerfil" prefHeight="25.0" prefWidth="115.0" ripplerFill="#065747" style="-fx-background-color: #09b696;" text="Criar Perfil" textFill="WHITE" />
+      <StackPane fx:id="pane" layoutX="98.0" prefHeight="110.0" prefWidth="420.0" />
+      <RequiredFieldValidator layoutX="198.0" layoutY="181.0" />
+   </children>
+</AnchorPane>

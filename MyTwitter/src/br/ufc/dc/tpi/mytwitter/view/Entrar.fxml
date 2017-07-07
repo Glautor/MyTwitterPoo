@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufc.dc.tpi.mytwitter.view.EntrarController">
+   <children>
+      <JFXTextField fx:id="usuario" focusColor="#09b696" layoutX="187.0" layoutY="145.0" prefHeight="41.0" prefWidth="235.0" promptText="Usuario" />
+      <JFXButton fx:id="entrar" buttonType="RAISED" layoutX="253.0" layoutY="260.0" onAction="#makeEntrar" prefHeight="31.0" prefWidth="103.0" ripplerFill="#126b5a" style="-fx-background-color: #09b696;" text="Entrar" textFill="WHITE">
+         <effect>
+            <Blend />
+         </effect>
+      </JFXButton>
+   </children>
+</AnchorPane>

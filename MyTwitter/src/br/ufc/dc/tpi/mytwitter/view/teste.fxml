@@ -1,12 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="358.0" prefWidth="565.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufc.dc.tpi.mytwitter.view.TesteController">
    <children>
-      <Button layoutX="221.0" layoutY="188.0" mnemonicParsing="false" text="Calma ainda vou terminar !" />
+      <ImageView fitHeight="356.0" fitWidth="584.0" layoutX="-3.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@blurred-background-2560x1600.jpg" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="criar_perfil" buttonType="RAISED" defaultButton="true" layoutX="110.0" layoutY="253.0" onAction="#criarPerfil" prefHeight="25.0" prefWidth="109.0" ripplerFill="#ad24d0" style="-fx-background-color: #27abbf; -fx-border-radius: 20 20 20 10;" text="Criar Perfil" textFill="WHITE" textOverrun="LEADING_WORD_ELLIPSIS">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <effect>
+            <Blend />
+         </effect>
+      </JFXButton>
+      <JFXButton fx:id="entrar" buttonType="RAISED" layoutX="407.0" layoutY="253.0" onAction="#entrar" prefHeight="25.0" prefWidth="109.0" ripplerFill="#ad24d0" style="-fx-background-color: #27abbf;" text="Entrar" textFill="WHITE">
+         <effect>
+            <Blend />
+         </effect>
+      </JFXButton>
    </children>
 </AnchorPane>

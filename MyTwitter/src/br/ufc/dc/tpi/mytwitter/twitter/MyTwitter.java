@@ -44,17 +44,12 @@ public class MyTwitter implements ITwitter {
 
 	@Override
 	public void criarPerfil(Perfil usuario) throws PEException, UJCException {
-		try {
+	
 			if (repositorio.buscar(usuario.getUsuario()) == null) {
 				repositorio.cadastrar(usuario);
 			} else {
 				throw new PEException(usuario.getUsuario());
-			}
-		} catch (PEException e) {
-			e.printStackTrace();
-		} catch (UJCException ee) {
-			ee.printStackTrace();
-		}
+			}	
 	}
 
 	@Override

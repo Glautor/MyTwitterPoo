@@ -12,9 +12,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -23,21 +24,24 @@ public class SplashController implements Initializable{
 	    @FXML
 	    private StackPane rootPane;
 	    
-	    private ImageView image;
 
 	    @FXML
-	    private Text text;
+	    private ProgressIndicator indicador;
+
+	   
 	    
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
+			indicador.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
 			new SplashScreen().start();
+			
 			
 		}
 		
 		class SplashScreen extends Thread{
 			public void run(){
 				try {
-					Thread.sleep(5000);
+					Thread.sleep(1000);
 					
 					Platform.runLater(new Runnable() {
 						public void run() {
@@ -50,6 +54,7 @@ public class SplashController implements Initializable{
 							
 							Scene scene = new Scene(root);
 							Stage stage = new Stage();
+							stage.setTitle("MyTwitter");
 							stage.setScene(scene);
 							stage.getIcons().add(new Image(JavaFX.class.getResourceAsStream("twitter.png")));
 							stage.show();
