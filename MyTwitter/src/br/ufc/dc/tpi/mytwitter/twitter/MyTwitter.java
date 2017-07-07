@@ -40,6 +40,7 @@ public class MyTwitter implements ITwitter {
 		this.repositorio = repositorio;
 		this.vtw = new Vector<Tweet>();
 		this.vtw = ler("src/br/ufc/dc/tpi/mytwitter/data/tweets/Tweets.xml");
+		
 	}
 
 	@Override

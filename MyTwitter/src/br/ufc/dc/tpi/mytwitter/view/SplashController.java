@@ -36,6 +36,7 @@ public class SplashController implements Initializable{
 			new SplashScreen().start();
 			
 			
+			
 		}
 		
 		class SplashScreen extends Thread{
