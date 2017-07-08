@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufc.dc.tpi.mytwitter.view.CancelarPerfilController">
+   <children>
+      <JFXTextField fx:id="usuario" layoutX="211.0" layoutY="130.0" prefHeight="25.0" prefWidth="181.0" promptText="Usuario" />
+      <JFXButton fx:id="cancelar" buttonType="RAISED" layoutX="255.0" layoutY="224.0" onAction="#makecancelar" ripplerFill="#076f58" style="-fx-background-color: #09b696;" text="Cancelar Perfil" textFill="WHITE">
+         <effect>
+            <Blend />
+         </effect>
+      </JFXButton>
+      <StackPane fx:id="pane" layoutX="117.0" prefHeight="82.0" prefWidth="366.0" />
+   </children>
+</AnchorPane>
