@@ -3,22 +3,20 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
-
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="358.0" prefWidth="565.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufc.dc.tpi.mytwitter.view.TesteController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="317.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufc.dc.tpi.mytwitter.view.TesteController">
    <children>
-      <ImageView fitHeight="356.0" fitWidth="584.0" layoutX="-3.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="317.0" fitWidth="574.0" layoutX="-3.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@blurred-background-2560x1600.jpg" />
+            <Image url="@../../../../../../../../../../Downloads/source.gif" />
          </image>
       </ImageView>
-      <JFXButton fx:id="criar_perfil" buttonType="RAISED" defaultButton="true" layoutX="110.0" layoutY="253.0" onAction="#criarPerfil" prefHeight="25.0" prefWidth="109.0" ripplerFill="#ad24d0" style="-fx-background-color: #27abbf; -fx-border-radius: 20 20 20 10;" text="Criar Perfil" textFill="WHITE" textOverrun="LEADING_WORD_ELLIPSIS">
+      <JFXButton fx:id="criar_perfil" buttonType="RAISED" defaultButton="true" layoutX="82.0" layoutY="253.0" onAction="#criarPerfil" prefHeight="25.0" prefWidth="109.0" ripplerFill="#ad24d0" style="-fx-background-color: #09b696; -fx-border-radius: 20 20 20 10;" text="Criar Perfil" textFill="WHITE" textOverrun="LEADING_WORD_ELLIPSIS">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
@@ -26,10 +24,11 @@
             <Blend />
          </effect>
       </JFXButton>
-      <JFXButton fx:id="entrar" buttonType="RAISED" layoutX="407.0" layoutY="253.0" onAction="#entrar" prefHeight="25.0" prefWidth="109.0" ripplerFill="#ad24d0" style="-fx-background-color: #27abbf;" text="Entrar" textFill="WHITE">
+      <JFXButton fx:id="entrar" buttonType="RAISED" layoutX="379.0" layoutY="253.0" onAction="#entrar" prefHeight="25.0" prefWidth="109.0" ripplerFill="#ad24d0" style="-fx-background-color: #09b696;" text="Entrar" textFill="WHITE">
          <effect>
             <Blend />
          </effect>
       </JFXButton>
+      <JFXButton fx:id="cancelarPerfil" buttonType="RAISED" layoutX="228.0" layoutY="253.0" onAction="#makeCancelarPerfil" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: #09b696;" text="Cancelar Perfil" textFill="WHITE" />
    </children>
 </AnchorPane>

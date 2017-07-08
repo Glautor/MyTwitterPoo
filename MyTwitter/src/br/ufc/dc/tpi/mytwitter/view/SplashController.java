@@ -12,6 +12,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
@@ -52,9 +54,9 @@ public class SplashController implements Initializable{
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
-							
 							Scene scene = new Scene(root);
 							Stage stage = new Stage();
+							stage.setResizable(false);
 							stage.setTitle("MyTwitter");
 							stage.setScene(scene);
 							stage.getIcons().add(new Image(JavaFX.class.getResourceAsStream("twitter.png")));

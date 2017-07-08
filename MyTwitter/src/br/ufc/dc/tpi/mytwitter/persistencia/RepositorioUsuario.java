@@ -100,31 +100,15 @@ public class RepositorioUsuario implements IRepositorioUsuario {
 	}
 
 	public void atualizar(Perfil usuario) throws UNCException {
-		String pathDir = "C:/Users/dhann/Documents/Git/MyTwitter/src/br/ufc/dc/tpi/mytwitter/data";
-		String pathArquivo = pathDir + "/" + "Usuarios.xml";
-		XStream stream = new XStream( new DomDriver());
+		Vector<Perfil> pp = new Vector<Perfil>();
 		
 		Perfil p = this.buscar(usuario.getUsuario());
 		if (p != null) {
-			try {
-
-				FileReader arquivo = new FileReader(pathArquivo);
-				BufferedReader leitor = new BufferedReader(arquivo);
-				String conteudo = leitor.readLine();
-				while (conteudo != null) {
-					System.out.println(conteudo);
-					conteudo = leitor.readLine();
-					if (conteudo == usuario.getUsuario()) {
-
-					}
-
-				}
-				leitor.close();
-				usuario = p;
-
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
+			this.usuarios.add(usuario);
+			for (Perfil u : usuarios) {
+				pp.add(u);
 			}
+			gravar("C:/Users/dhann/Documents/Git/MyTwitter/src/br/ufc/dc/tpi/mytwitter/data/usuarios/Usuarios.xml", pp);
 
 		} else {
 			throw new UNCException(usuario.getUsuario());

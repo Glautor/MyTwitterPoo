@@ -37,12 +37,19 @@ public class TesteController implements Initializable{
     void ad24d0(ActionEvent event) {
 
     }
+    @FXML
+    private JFXButton cancelarPerfil;
 
     @FXML
     void entrar(ActionEvent event) {
     	new Entrar().start();
     }
 
+
+    @FXML
+    void makeCancelarPerfil(ActionEvent event) {
+    	new CancelarPerfil().start();
+    }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -74,13 +81,37 @@ public class TesteController implements Initializable{
 		}
 	}
 	
+	class CancelarPerfil extends Thread{
+		public void run(){
+			Platform.runLater(new Runnable() {
+				public void run() {
+					Parent root = null;
+					try {
+						root = FXMLLoader.load(getClass().getResource("CancelarPerfil.fxml")); 
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+					Scene scene = new Scene(root);
+					Stage stage = new Stage();
+					stage.setResizable(false);
+					stage.setTitle("MyTwitter");
+					stage.setScene(scene);
+					stage.getIcons().add(new Image(JavaFX.class.getResourceAsStream("twitter.png")));
+					stage.show();
+				}
+			});
+			
+		}
+	}
+	
 	class Entrar extends Thread{
 		public void run(){
 			Platform.runLater(new Runnable() {
 				public void run() {
 					Parent root = null;
 					try {
-						root = FXMLLoader.load(getClass().getResource("Entrar.fxml")); 
+						root = FXMLLoader.load(getClass().getResource("MyTwitter.fxml")); 
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

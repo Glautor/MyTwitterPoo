@@ -7,6 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -22,6 +24,9 @@ public class JavaFX extends Application {
 		Parent root = FXMLLoader.load(getClass().getResource("Splash.fxml"));
 		Scene scene = new Scene(root);
 	
+		
+		
+		
 		stage.setScene(scene);
 		stage.setTitle("MyTwitter");
 		stage.getIcons().add(new Image(JavaFX.class.getResourceAsStream("twitter.png")));

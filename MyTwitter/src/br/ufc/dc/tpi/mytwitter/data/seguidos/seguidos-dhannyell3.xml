@@ -1,1 +1,21 @@
-<Usuarios/>
+<Usuarios>
+  <UsuarioPJ>
+    <usuario>dhannyell99</usuario>
+    <seguidos/>
+    <seguidores>
+      <UsuarioPF>
+        <usuario>dhannyell3</usuario>
+        <seguidos>
+          <UsuarioPJ reference="../../../.."/>
+        </seguidos>
+        <seguidores/>
+        <timeline/>
+        <ativo>true</ativo>
+        <cpf>232323</cpf>
+      </UsuarioPF>
+    </seguidores>
+    <timeline/>
+    <ativo>true</ativo>
+    <cnpj>233283</cnpj>
+  </UsuarioPJ>
+</Usuarios>

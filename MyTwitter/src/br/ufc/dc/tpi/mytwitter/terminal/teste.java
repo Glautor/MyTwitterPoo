@@ -39,12 +39,22 @@ public class teste {
 		//my.tweetar("dhannyell99", "c");
 		//my.tweetar("dhannyell3", "teste timeline");
 		//my.seguir("dhannyell3", "dhannyell99");
-		my.seguir("dhannyell6", "dhannyell3");
+		//my.seguir("dhannyell3", "dhannyell99");
 		//my.seguir("dhannyell99", "dhannyell3");
+		//my.seguir("dhannyell", "dhannyell3");
+		//my.seguir("dhannyell3", "dhannyell99");
 		//my.tweetar("dhannyell99", "oio");
 		//my.tweetar("dhannyell3", "vc me ver?");
-		my.seguidores("dhannyell3");
-		my.seguidos("dhannyell3");
+		//my.seguidores("dhannyell3");
+		//my.seguidos("dhannyell3");
+		for(Tweet t : my.timeline("dhannyell3")){
+			System.out.println(t.getMensagem());
+		}
+		for(Perfil p : my.seguidores("dhannyell3")){
+			System.out.println(p.getUsuario());
+		};
+		
+		
 		//my.seguidores("dhannyell99");
 		//my.timeline("dhannyell3");
 		//my.timeline("dhannyell99");

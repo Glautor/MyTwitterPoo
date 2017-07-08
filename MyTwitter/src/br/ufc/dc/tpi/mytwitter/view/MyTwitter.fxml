@@ -1,11 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="br.ufc.dc.tpi.mytwitter.view.MyTwitterController">
-	<!-- TODO Add Nodes -->
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="585.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufc.dc.tpi.mytwitter.view.MyTwitterController">
+   <children>
+      <JFXButton fx:id="tweetar" buttonType="RAISED" layoutX="470.0" layoutY="61.0" onAction="#make_tweetar" style="-fx-background-color: #09b696;" text="Tweetar" textFill="WHITE" />
+      <ScrollPane fx:id="scroll" layoutY="106.0" prefHeight="480.0" prefWidth="650.0">
+         <content>
+            <JFXListView fx:id="lista" prefHeight="464.0" prefWidth="647.0" />
+         </content>
+      </ScrollPane>
+      <Pane fx:id="pane" prefHeight="37.0" prefWidth="650.0" style="-fx-background-color: #ccc;">
+         <children>
+            <JFXButton fx:id="tweets" buttonType="RAISED" layoutX="35.0" layoutY="5.0" onAction="#exibir_tweets" style="-fx-background-color: #09b696;" text="Tweets" textFill="WHITE" />
+            <JFXButton fx:id="timeline" buttonType="RAISED" layoutX="115.0" layoutY="6.0" onAction="#exibir_timeline" style="-fx-background-color: #09b696;" text="Timeline" textFill="WHITE" />
+            <JFXButton fx:id="seguidores" buttonType="RAISED" layoutX="196.0" layoutY="6.0" onAction="#exibir_seguidores" style="-fx-background-color: #09b696;" text="Seguidores" textFill="WHITE" />
+            <JFXButton fx:id="seguidos" buttonType="RAISED" layoutX="294.0" layoutY="6.0" onAction="#exibir_seguidos" style="-fx-background-color: #09b696;" text="Seguidos" textFill="WHITE" />
+            <JFXButton fx:id="num_seguidores" buttonType="RAISED" layoutX="387.0" layoutY="5.0" onAction="#make_numSeguidores" style="-fx-background-color: #09b696;" text="Num Seguidores" textFill="WHITE" />
+            <JFXTextField fx:id="usuario" focusColor="#09b696" layoutX="501.0" layoutY="2.0" promptText="Usuario Aivo" />
+         </children>
+      </Pane>
+      <StackPane fx:id="pane3" layoutX="160.0" layoutY="128.0" prefHeight="80.0" prefWidth="251.0" />
+      <JFXTextField fx:id="u_seguir" layoutX="14.0" layoutY="62.0" promptText="Usuario" />
+      <JFXButton fx:id="seguir" buttonType="RAISED" layoutX="168.0" layoutY="62.0" onAction="#make_seguir" style="-fx-background-color: #09b696;" text="Seguir" textFill="WHITE" />
+      <JFXTextArea fx:id="caixa_text" layoutX="246.0" layoutY="62.0" prefHeight="25.0" prefWidth="207.0" promptText="Mensagem" />
+   </children>
 </AnchorPane>
